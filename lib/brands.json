@@ -1,0 +1,38 @@
+[
+  {
+    "Label": "Ferrari",
+    "Value": "20"
+  },
+  {
+    "Label": "Fiat",
+    "Value": "21"
+  },
+  {
+    "Label": "Ford",
+    "Value": "22"
+  },
+  {
+    "Label": "GM - Chevrolet",
+    "Value": "23"
+  },
+  {
+    "Label": "Honda",
+    "Value": "25"
+  },
+  {
+    "Label": "Peugeot",
+    "Value": "44"
+  },
+  {
+    "Label": "Renault",
+    "Value": "48"
+  },
+  {
+    "Label": "Toyota",
+    "Value": "56"
+  },
+  {
+    "Label": "VW - VolksWagen",
+    "Value": "59"
+  }
+]

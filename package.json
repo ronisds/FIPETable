@@ -4,7 +4,8 @@
   "description": "RESTful API for the FIPE table",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,16 @@
   "bugs": {
     "url": "https://github.com/ronisds/FIPETable/issues"
   },
-  "homepage": "https://github.com/ronisds/FIPETable#readme"
+  "homepage": "https://github.com/ronisds/FIPETable#readme",
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "osmosis": "^1.1.4",
+    "pg-promise": "^5.9.6",
+    "request": "^2.81.0"
+  }
 }
