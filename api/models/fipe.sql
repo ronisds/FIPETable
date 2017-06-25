@@ -18,8 +18,12 @@ CREATE TABLE vehicles (
   yearId VARCHAR
 );
 
+/*
+
 INSERT INTO vehicles (value, brand, model, modelYear, fuel, fipeCode, referenceMonth, referenceTableId, brandId, modelId, yearId)
     VALUES ('10 real', 'aa', 'ae', 1, 'ad', 'ac', 'ab', 185, 3, 4, 'aaa');
 
 INSERT INTO vehicles (value, brand, model, modelYear, fuel, fipeCode, referenceMonth, referenceTableId, brandId, modelId, yearId)
     VALUES ('101 real', 'aa', 'ae', 1, 'ad', 'ac', 'ab', 186, 3, 4, 'aaa');
+
+*/

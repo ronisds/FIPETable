@@ -10,12 +10,20 @@ var express = require('express'),
     fipeScraper = Promise.promisifyAll(require('./lib/FIPEScraper'));   // FIPE table scraper
 
 
-app.use(bodyParser.urlencoded({ extended: true }));     // Parse application/x-www-form-urlencoded
-app.use(bodyParser.json());                             // Parse application/json
+app.use(bodyParser.urlencoded({ extended: true }));                     // Parse application/x-www-form-urlencoded
+app.use(bodyParser.json());                                             // Parse application/json
+
+app.set('json spaces', 1);                                              // Should remove this in production mode to minimize responses
 
 var routes = require('./api/routes/fipeTableRoutes');                   // Routes
 routes(app);
 
-app.listen(port);
+// Set the number of initial reference tables in the db
+// Here's is where the party begins
+console.log("Initializing the database");
+fipeHelper.saveFIPEFromLastReferenceTables(3);                          // Set the number of reference tables
+
+
+app.listen(port);                                                       // Start the server
 
 console.log('FIPETable RESTful API server started on: ' + port);

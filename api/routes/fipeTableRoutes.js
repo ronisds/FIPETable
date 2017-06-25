@@ -4,21 +4,16 @@ module.exports = function(app) {
 
     // FIPETable Routes
 
-    app.route('/test')
-        .get(fipeTable.doTest);
+    app.get('/dates', fipeTable.listDates);
 
-    app.route('/dates')
-        .get(fipeTable.listDates);
+    app.get('/brands/:dateId', fipeTable.listBrands);
 
-    app.route('/brands/:dateId')
-        .get(fipeTable.listBrands);
+    app.get('/models/:dateId/:brandId', fipeTable.listModels);
 
-    app.route('/models/:dateId/:brandId')
-        .get(fipeTable.listModels);
+    app.get('/years/:dateId/:brandId/:modelId', fipeTable.listYears);
 
-    app.route('/years/:dateId/:brandId/:modelId')
-        .get(fipeTable.listYears);
+    app.get('/vehicles/:dateId?/:brandId?/:modelId?/:yearId?', fipeTable.getVehicle);
 
-    app.route('/vehicle/:dateId/:brandId/:modelId/:yearId')
-        .get(fipeTable.getVehicle);
+    app.use(fipeTable.errorHandler);
+
 };

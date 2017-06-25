@@ -1,11 +1,7 @@
 'use strict';
 const model = require('../models/fipeTableModel');
 
-exports.doTest = function(req, res) {
-    res.send("Hello World!?!");
-};
-
-exports.listDates = function(req, res) {
+exports.listDates = function(req, res, next) {
     model.db.any('select referencemonth, referencetableid from vehicles')
         .then(function(data) {
             let results = {};
@@ -20,7 +16,7 @@ exports.listDates = function(req, res) {
         })
 }
 
-exports.listBrands = function(req, res) {
+exports.listBrands = function(req, res, next) {
     model.db.any('select brand, brandid from vehicles WHERE referenceTableId = ${dateId}', req.params)
         .then(function(data) {
             let results = {};
@@ -36,7 +32,7 @@ exports.listBrands = function(req, res) {
         });
 }
 
-exports.listModels = function(req, res) {
+exports.listModels = function(req, res, next) {
     model.db.any('select model, modelid from vehicles WHERE referenceTableId = ${dateId} AND brandid = ${brandId}', req.params)
         .then(function(data) {
             let results = {};
@@ -52,7 +48,7 @@ exports.listModels = function(req, res) {
         });
 }
 
-exports.listYears = function(req, res) {
+exports.listYears = function(req, res, next) {
     model.db.any('select yearid from vehicles WHERE referenceTableId = ${dateId} AND brandid = ${brandId} AND modelid = ${modelId}', req.params)
         .then(function(data) {
             console.log("Amount of dates: ", data.length);
@@ -64,14 +60,38 @@ exports.listYears = function(req, res) {
         });
 }
 
-exports.getVehicle = function(req, res) {
-    model.db.any('select * from vehicles WHERE referenceTableId = ${dateId} AND brandid = ${brandId} AND modelid = ${modelId} AND yearid = ${yearId}', req.params)
+exports.getVehicle = function(req, res, next) {
+    let query = 'SELECT * FROM vehicles';
+    if (typeof req.params.dateId !== 'undefined') {
+        query += ' WHERE referenceTableid = ${dateId}';
+        if (typeof req.params.brandId !== 'undefined') {
+            query += ' AND brandid = ${brandId}';
+            if (typeof req.params.modelId !== 'undefined') {
+                query += ' AND modelid = ${modelId}';
+                if (typeof req.params.yearId !== 'undefined') {
+                    query += ' AND yearid = ${yearId}';
+                }
+            }
+        }
+    }
+
+    console.log("Request: ", req.params);
+    console.log(query);
+    //'SELECT * FROM vehicles WHERE referenceTableId = ${dateId} AND brandid = ${brandId} AND modelid = ${modelId} AND yearid = ${yearId}', req.params
+
+    model.db.any(query, req.params)
         .then(function(data) {
-            if (data.length > 0) res.json(data[0]);
-            else res.json(data);
+            res.json(data);
         })
         .catch(function(err) {
             console.log(err);
             next(err);
         });
+}
+
+// error handler
+// should change when in production to not delivery stacktraces to user
+exports.errorHandler = function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', { err });
 }
