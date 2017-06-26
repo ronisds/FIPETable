@@ -5,7 +5,6 @@ var express = require('express'),
     fipeHelper = require('./lib/FIPEHelper'),                           // Initialize the FIPE db and gives another helper methods
     bodyParser = require('body-parser'),                                // Middleware for reading request body
     controller = require('./api/controllers/fipeTableController'),      // Controller
-
     Promise = require('bluebird'),                                      // Promise library
     fipeScraper = Promise.promisifyAll(require('./lib/FIPEScraper'));   // FIPE table scraper
 
